@@ -1,0 +1,40 @@
+import tkinter as tk
+import random
+import string
+
+def generate_password():
+    length = 15  # Длина пароля
+    characters = string.ascii_lowercase  # Минимум включаем строчные буквы
+
+    if uppercase_var.get():
+        characters += string.ascii_uppercase  # Заглавные буквы
+    if digits_var.get():
+        characters += string.digits  # Цифры
+    if special_var.get():
+        characters += string.punctuation  # Специальные символы
+
+    password = ''.join(random.choice(characters) for _ in range(length))
+    password_label.config(text=password)
+
+root = tk.Tk()
+root.title("Генератор паролей")
+
+uppercase_var = tk.BooleanVar()
+digits_var= tk.BooleanVar()
+special_var = tk.BooleanVar()
+
+uppercase_checkbox = tk.Checkbutton(root, text="Включать заглавные буквы", variable=uppercase_var)
+digits_checkbox = tk.Checkbutton(root, text="Включать цифры", variable=digits_var)
+special_checkbox = tk.Checkbutton(root, text="Включать специальные символы", variable=special_var)
+
+generate_button = tk.Button(root, text="Сгенерировать пароль", command=generate_password)
+
+password_label = tk.Label(root, text="", font=("Helvetica", 16))
+
+uppercase_checkbox.pack()
+digits_checkbox.pack()
+special_checkbox.pack()
+generate_button.pack()
+password_label.pack()
+
+root.mainloop()
